@@ -1,0 +1,106 @@
+[
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "BaseSettings",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "RaceWinner",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class RaceWinner(BaseModel):\n    race: str\n    winner: str\n    class Config:\n        schema_extra = {\n            \"example\": {\"race\": \"bahrain\", \"winner\": \"Lewis Hamilton\"},\n        }\nclass YearWinnersResponse(BaseModel):\n    year: int\n    winners: List[RaceWinner]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "YearWinnersResponse",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class YearWinnersResponse(BaseModel):\n    year: int\n    winners: List[RaceWinner]\n    class Config:\n        schema_extra = {\n            \"example\": {\n                \"year\": 2021,\n                \"winners\": [\n                    {\"race\": \"bahrain\", \"winner\": \"Lewis Hamilton\"},\n                    {\"race\": \"emilia_romagna\", \"winner\": \"Max Verstappen\"},",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "RaceWinnerResponse",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class RaceWinnerResponse(BaseModel):\n    year: int\n    race: str\n    winner: str\n    class Config:\n        schema_extra = {\n            \"example\": {\"race\": \"bahrain\", \"winner\": \"Lewis Hamilton\"}\n        }\n# Root endpoint\n@app.get(\"/\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "read_root",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def read_root():\n    return {\"message\": \"Welcome to the F1 Race Winners API!\"}\n# Endpoint to get winners for a specific year\n@app.get(\"/winners/{year}\", response_model=YearWinnersResponse)\ndef get_year_winners(year: int):\n    if year in f1_race_winners:\n        return {\"year\": year, \"winners\": f1_race_winners[year]}\n    return {\"error\": \"Data not available for the requested year.\"}\n# Endpoint to get winners for a specific year and race\n@app.get(\"/winners/{year}/{race}\", response_model=RaceWinnerResponse)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_year_winners",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_year_winners(year: int):\n    if year in f1_race_winners:\n        return {\"year\": year, \"winners\": f1_race_winners[year]}\n    return {\"error\": \"Data not available for the requested year.\"}\n# Endpoint to get winners for a specific year and race\n@app.get(\"/winners/{year}/{race}\", response_model=RaceWinnerResponse)\ndef get_race_winner(year: int, race : str):\n    if year in f1_race_winners:\n        for race_info in f1_race_winners[year]:\n            if race_info[\"race\"].strip().lower() == race.strip().lower():",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_race_winner",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_race_winner(year: int, race : str):\n    if year in f1_race_winners:\n        for race_info in f1_race_winners[year]:\n            if race_info[\"race\"].strip().lower() == race.strip().lower():\n                return {\"year\": year, \"race\": race, \"winner\": race_info[\"winner\"]}\n        return {\"error\": \"Race not found for the requested year.\"}\n    return {\"error\": \"Data not available for the requested year.\"}",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\n# Fake data of F1 race winners\nf1_race_winners = {\n    2021: [\n        {\"race\": \"bahrain\", \"winner\": \"Lewis Hamilton\"},\n        {\"race\": \"emilia_romagna\", \"winner\": \"Max Verstappen\"},\n        {\"race\": \"portuguese\", \"winner\": \"Lewis Hamilton\"},\n    ],\n    2022: [\n        {\"race\": \"bahrain\", \"winner\": \"Charles Leclerc\"},",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "f1_race_winners",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "f1_race_winners = {\n    2021: [\n        {\"race\": \"bahrain\", \"winner\": \"Lewis Hamilton\"},\n        {\"race\": \"emilia_romagna\", \"winner\": \"Max Verstappen\"},\n        {\"race\": \"portuguese\", \"winner\": \"Lewis Hamilton\"},\n    ],\n    2022: [\n        {\"race\": \"bahrain\", \"winner\": \"Charles Leclerc\"},\n        {\"race\": \"saudi_arabia\", \"winner\": \"Max Verstappen\"},\n        {\"race\": \"australian\", \"winner\": \"Charles Leclerc\"},",
+        "detail": "main",
+        "documentation": {}
+    }
+]
