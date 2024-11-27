@@ -1,10 +1,9 @@
+from typing import List
+
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List 
-from pydantic_settings import BaseSettings
 
-
-app = FastAPI()
+app = FastAPI(servers=[{"url": "http://localhost:8000"}])
 
 # Fake data of F1 race winners
 f1_race_winners = {
